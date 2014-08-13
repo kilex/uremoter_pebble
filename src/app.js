@@ -154,7 +154,7 @@ function itemSelected(e,menuObj) {
       }]
     });
     var menuArr = loadMenu();
-    var submenyarr=menuArr.menues[e.item.value];
+    var submenyarr=menuArr.submenu[e.item.value];
     generateMenu(submenu,submenyarr);
     submenu.show();
   }
@@ -168,7 +168,6 @@ function itemSelected(e,menuObj) {
     //  При выходе из сабменю - уничтожаем его.
       this.remove();
     });
-}
+  }
     
   }
-}
