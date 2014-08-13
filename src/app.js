@@ -160,14 +160,24 @@ function itemSelected(e,menuObj) {
   }
   if (e.item.type === 'card') {
     // Карточка с результатами из json
-    var card = new UI.Card();
-    card.title(e.item.name);
-    card.body('loading...');
+    var card = new UI.Card({
+      title: 'hard!',
+      body: 'loading',
+      scrollable: true
+    });
     card.show();
-    card.on('click', 'back', function(e) { 
+    ajax({ url: e.item.value, type: 'json' },
+      function(data) {
+        console.log('loaded');
+        console.log(e.item.value, data, data.result, data.title);
+        card.body(data.result);
+        card.title(data.title);
+      }
+    );
+  /*  card.on('click', 'back', function(e) { 
     //  При выходе из сабменю - уничтожаем его.
       this.remove();
     });
-  }
-    
-  }
+  }*/
+  } 
+}
