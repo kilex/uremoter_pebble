@@ -8,6 +8,7 @@ var UI = require('ui');
 var ajax = require('ajax');
 //var allMenu = [];
 var Settings = require('settings');
+var Vibe = require('ui/vibe');
 //var Vector2 = require('vector2');
 
 var menuUI = new UI.Menu({
@@ -42,6 +43,7 @@ function getSettings()
       },
       function(data) {
         // Получили дерево меню, сохранили.
+        console.log('saved');
         Settings.option('menu',data);
       },
       function(error) {
@@ -98,6 +100,12 @@ function generateMenu(menuObj,menuArr) {
   menuObj.on('select', function(e) { 
     // Кликалка на объекты меню
     itemSelected(e, menuObj);
+  });
+  menuObj.on('longSelect', function(e) { 
+    console.log('reload');
+    Vibe.vibrate('short');
+    //menuObj.items(0, {});
+    getSettings();
   });
   menuObj.on('click', 'back', function(e) { 
     //  При выходе из сабменю - уничтожаем его.
@@ -161,17 +169,21 @@ function itemSelected(e,menuObj) {
   if (e.item.type === 'card') {
     // Карточка с результатами из json
     var card = new UI.Card({
-      title: 'hard!',
-      body: 'loading',
+      title: 'title',
+      body: 'loading...',
       scrollable: true
     });
     card.show();
     ajax({ url: e.item.value, type: 'json' },
       function(data) {
-        console.log('loaded');
+        // console.log('loaded');
         console.log(e.item.value, data, data.result, data.title);
-        card.body(data.result);
-        card.title(data.title);
+        card.body(data.result.toString());
+        card.title(data.title.toString());
+      },
+      function(error) {
+        console.log(error);
+        card.body('error');
       }
     );
   /*  card.on('click', 'back', function(e) { 
