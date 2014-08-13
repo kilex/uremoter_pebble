@@ -32,6 +32,9 @@ Settings.config(
 
 function getSettings()
 {
+    if (!Settings.option('server_url')) {
+      Settings.option('server_url','http://kilex.ru/pebble/list.php');
+    }
     ajax(
       {
         url: Settings.option('server_url'),
@@ -154,5 +157,18 @@ function itemSelected(e,menuObj) {
     var submenyarr=menuArr.menues[e.item.value];
     generateMenu(submenu,submenyarr);
     submenu.show();
+  }
+  if (e.item.type === 'card') {
+    // Карточка с результатами из json
+    var card = new UI.Card();
+    card.title(e.item.name);
+    card.body('loading...');
+    card.show();
+    card.on('click', 'back', function(e) { 
+    //  При выходе из сабменю - уничтожаем его.
+      this.remove();
+    });
+}
+    
   }
 }
