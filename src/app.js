@@ -34,7 +34,7 @@ Settings.config(
 function getSettings()
 {
     if (!Settings.option('server_url')) {
-      Settings.option('server_url','http://kilex.ru/pebble/list.php');
+      Settings.option('server_url','http://kilex.ru/pebble/list.json');
     }
     ajax(
       {
@@ -176,8 +176,6 @@ function itemSelected(e,menuObj) {
     card.show();
     ajax({ url: e.item.value, type: 'json' },
       function(data) {
-        // console.log('loaded');
-        console.log(e.item.value, data, data.result, data.title);
         card.body(data.result.toString());
         card.title(data.title.toString());
       },
