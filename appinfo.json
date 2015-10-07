@@ -41,11 +41,13 @@
             }
         ]
     },
+    "sdkVersion": "3",
     "shortName": "Remoter",
     "uuid": "693c4210-43be-4a79-83ee-1fb8ae2b09b9",
     "versionCode": 1,
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "watchapp": {
+        "hiddenApp": false,
         "watchface": false
     }
 }

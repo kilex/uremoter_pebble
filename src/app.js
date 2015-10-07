@@ -21,7 +21,7 @@ showMainMenu();
 
 // Модуль конфигуряния (пеечитывает настройки в момент сохранения или если отсутсвуют в памяти телефона)
 Settings.config(
-  { url: 'http://kilex.ru/pebble/settings.php?set_url='+Settings.option('server_url') },
+  { url: 'http://kilex.ru/pebble/settings.php' },
   function(e) {
     getSettings();
     // Show the raw response if parsing failed
@@ -42,7 +42,7 @@ function getSettings()
         type: 'json'
       },
       function(data) {
-        // Получили дерево меню, сохранили.
+        // Получили дерево меню, сохранили..
         console.log('saved');
         Settings.option('menu',data);
       },
